@@ -2,25 +2,24 @@
 <html>
 <head>
   <title>Item Detail</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <h1>Item Details</h1>
   <div id="item"></div>
 
-<script>
-  const itemId = window.location.pathname.split("/").pop();  // e.g., /items/<uuid>
-  fetch(`/api/items/${itemId}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("item").innerHTML = `
-        <p><strong>Item Description:</strong> ${data.item_description}</p>
-        <p><strong>Directions:</strong> ${data.directions}</p>
-        <p><strong>Dropoff Location:</strong> ${data.dropoff_location}</p>
-        <p><strong>Contact:</strong> ${data.contact}</p>
-      `;
-    })
-    .catch(err => console.error("Error fetching item:", err));
-</script>
-
+  <script>
+    const itemId = window.location.pathname.split("/").pop();
+    fetch(`/api/items/${itemId}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("item").innerHTML = `
+          <p><strong>Item Description:</strong> ${data.item_description}</p>
+          <p><strong>Directions:</strong> ${data.directions}</p>
+          <p><strong>Dropoff Location:</strong> ${data.dropoff_location}</p>
+          <p><strong>Contact:</strong> ${data.contact}</p>
+        `;
+      });
+  </script>
 </body>
 </html>

@@ -13,4 +13,4 @@ class Item(Base):
     item_description = Column(String, nullable=False)
     directions = Column(String, nullable=False)
     dropoff_location = Column(String, nullable=False)
-    contact = Column(String, nullable=False)
+    contact = Column(String, nullable=True, default="N/A")
