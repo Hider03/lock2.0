@@ -2,22 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Item App</title>
-  <!-- Updated paths to use /static -->
   <link rel="stylesheet" href="/static/style.css">
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
-  <h1>Create Item</h1>
-  <form id="itemForm">
-    <input id="item_description" placeholder="Description" required><br>
-    <input id="directions" placeholder="Directions" required><br>
-    <input id="dropoff_location" placeholder="Dropoff Location" required><br>
-    <input id="contact" placeholder="Contact"><br>
-    <button type="submit">Create Item</button>
-  </form>
-  <div id="qr"></div>
-  <!-- Updated path to use /static -->
+  <h1>QR Item App</h1>
+  
+  <div class="container">
+    <div class="form-section">
+      <h2>Create Item</h2>
+      <form id="itemForm">
+        <input id="item_description" placeholder="Description" required>
+        <textarea id="directions" placeholder="Directions" required></textarea>
+        <input id="dropoff_location" placeholder="Dropoff Location" required>
+        <input id="contact" placeholder="Contact">
+        <button type="submit">CREATE ITEM</button>
+      </form>
+    </div>
+    
+    <div class="qr-section">
+      <div id="qr"></div>
+      <div id="item-buttons"></div>
+    </div>
+  </div>
+
   <script src="/static/script.js"></script>
 </body>
 </html>

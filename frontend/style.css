@@ -1,281 +1,337 @@
-/* Beautiful styling for QR Item App */
+/* Dark theme styling for QR Item App */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1e1a1a 100%);
-  min-height: 100vh;
-  color: #ccc;
-  line-height: 1.6;
-  padding: 20px;
-  position: relative;
+@font-face {
+  font-family: 'Pickyside';
+  src: url('fonts/PickysideRegular-vn7w4.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  pointer-events: none;
-  z-index: -1;
+body {
+  font-family: 'Pickyside', sans-serif;
+  background: #1a202c;
+  min-height: 100vh;
+  color: #e2e8f0;
+  line-height: 1.6;
+  padding: 20px;
+  font-size: 18px; /* Increased base font size */
 }
 
 h1 {
   text-align: center;
-  color: #fff;
+  color: white;
   margin-bottom: 40px;
-  font-size: 3rem;
-  font-weight: 700;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-  letter-spacing: 2px;
-  position: relative;
+  font-size: 2.8rem; /* Bigger heading */
+  font-weight: normal;
+  letter-spacing: 1px;
+  font-family: 'Pickyside', sans-serif;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-transform: uppercase;
 }
 
-h1::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #fff, transparent);
-  border-radius: 2px;
+/* Two-column layout */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* Left column - Form */
+.form-section {
+  background: #4a5568;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.form-section h2 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 2rem; /* Larger section heading */
+  font-weight: normal;
+  font-family: 'Pickyside', sans-serif;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  letter-spacing: 0.5px;
 }
 
 form {
-  max-width: 500px;
-  margin: 0 auto 40px auto;
-  background: rgba(20,20,20,0.95);
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-form::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
+/* Input and textarea: Use system font, not Pickyside, and larger size */
+input, textarea {
   width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.5s;
-}
-
-form:hover::before {
-  left: 100%;
-}
-
-input {
-  width: 100%;
-  padding: 18px 20px;
-  margin-bottom: 20px;
-  border: 2px solid #555;
-  border-radius: 12px;
-  font-size: 16px;
+  padding: 16px; /* Slightly more padding */
+  border: none;
+  border-radius: 10px;
+  font-size: 18px; /* Larger font */
+  background: white;
+  color: #2d3748;
   transition: all 0.3s ease;
-  background: rgba(50,50,50,0.9);
-  color: #eee;
-  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Standard system font */
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   transform: translateY(-2px);
-  background: #2a2a2a;
 }
 
-input::placeholder {
-  color: #888;
+input::placeholder, textarea::placeholder {
+  color: #a0aec0;
   font-weight: 500;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 button {
   width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, #4444aa 0%, #222266 100%);
+  padding: 16px;
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-size: 18px; /* Larger button text */
+  font-weight: normal;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
-}
-
-button:hover::before {
-  left: 100%;
+  border: 2px solid #4a5568;
+  font-family: 'Pickyside', sans-serif;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 button:hover {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(68,68,136,0.5);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  border-color: #718096;
 }
 
 button:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
+}
+
+/* Right column - QR Code */
+.qr-section {
+  background: #4a5568;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 #qr {
   text-align: center;
-  margin-top: 40px;
-  padding: 30px;
-  background: rgba(30,30,30,0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
 }
 
 #qr canvas {
-  background: #111;
-  padding: 25px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+}
+
+/* Item button styling */
+#item-buttons {
+  margin-top: 20px;
+}
+
+.item-link-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px; /* Larger font */
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Pickyside', sans-serif;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+  border: 2px solid #3182ce;
+}
+
+.item-link-button:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.item-link-button:active {
+  transform: translateY(0);
+}
+
+.download-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px; /* Larger font */
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  font-family: 'Pickyside', sans-serif;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  border: 2px solid #059669;
+}
+
+.download-button:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.download-button:active {
+  transform: translateY(0);
+}
+
+/* Item details styling */
+#item {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #4a5568;
+  padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
-}
-
-#qr canvas:hover {
-  transform: scale(1.05);
-}
-
-/* Enhanced Item details styling */
-#item {
-  max-width: 700px;
-  margin: 0 auto;
-  background: rgba(20,20,20,0.95);
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Explicit system font */
 }
 
 #item p {
-  margin-bottom: 25px;
-  padding: 25px;
-  background: linear-gradient(135deg, #222 0%, #333 100%);
-  border-radius: 15px;
-  border-left: 6px solid #667eea;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  color: #eee;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #718096;
+  border-radius: 10px;
+  border-left: 4px solid #000000;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-family: inherit; /* Ensures it respects parent (system font) */
 }
 
 #item p:hover {
-  background: linear-gradient(135deg, #2a2a40 0%, #1a1a2a 100%);
+  transform: translateX(5px);
+  background: #805ad5;
 }
 
 #item strong {
-  color: #ccc;
+  color: #a9b730;
   display: block;
-  margin-bottom: 10px;
-  font-size: 13px;
+  margin-bottom: 8px;
+  font-size: 16px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  min-width: 120px;
-  padding: 8px 16px;
-  background: rgba(102, 126, 234, 0.1);
-  border-radius: 20px;
-  text-align: center;
-  color: #667eea;
-}
-
-#item p:nth-child(1) strong {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-}
-
-#item p:nth-child(2) strong {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-}
-
-#item p:nth-child(3) strong {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-}
-
-#item p:nth-child(4) strong {
-  background: rgba(139, 92, 246, 0.1);
-  color: #8b5cf6;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-family: inherit; /* Prevents fallback to Pickyside */
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body {
-    padding: 15px;
+    font-size: 16px; /* Responsive base size */
+    padding: 10px;
   }
-  
+
   h1 {
     font-size: 2.2rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding: 0 10px;
   }
-  
-  form, #item {
-    padding: 25px;
-    margin-bottom: 30px;
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 100%;
   }
-  
-  input {
-    padding: 15px 18px;
-    margin-bottom: 15px;
+
+  .form-section h2 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
   }
-  
-  button {
-    padding: 16px;
+
+  input, textarea {
+    padding: 14px;
+    font-size: 16px; /* Prevent zoom on iOS, still readable */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  textarea {
+    min-height: 90px;
+  }
+
+  button, .item-link-button, .download-button {
+    padding: 14px;
     font-size: 16px;
   }
-  
-  #qr {
-    padding: 20px;
-    margin-top: 30px;
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
+    padding: 5px;
   }
-  
-  #item p {
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
   }
-  
-  #item strong {
-    min-width: auto;
-    align-self: flex-start;
+
+  .form-section, .qr-section, #item {
+    padding: 18px;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .form-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  input, textarea {
+    padding: 12px;
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+
+  button, .item-link-button, .download-button {
+    padding: 12px;
+    font-size: 14px;
   }
 }
 
@@ -285,66 +341,15 @@ button:active {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.05);
+  background: #4a5568;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
+  background: #718096;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-form, #qr {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-#item {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-#item p {
-  animation: slideInRight 0.6s ease-out;
-}
-
-#item p:nth-child(1) { animation-delay: 0.1s; }
-#item p:nth-child(2) { animation-delay: 0.2s; }
-#item p:nth-child(3) { animation-delay: 0.3s; }
-#item p:nth-child(4) { animation-delay: 0.4s; }
-
-/* Focus states for accessibility */
-input:focus-visible {
-  outline: 2px solid #667eea;
-  outline-offset: 2px;
-}
-
-button:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 2px;
+  background: #805ad5;
 }
