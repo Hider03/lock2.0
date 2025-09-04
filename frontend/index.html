@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Item App</title>
+  <!-- Updated paths to use /static -->
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+  <h1>Create Item</h1>
+  <form id="itemForm">
+    <input id="item_description" placeholder="Description" required><br>
+    <input id="directions" placeholder="Directions" required><br>
+    <input id="dropoff_location" placeholder="Dropoff Location" required><br>
+    <input id="contact" placeholder="Contact"><br>
+    <button type="submit">Create Item</button>
+  </form>
+  <div id="qr"></div>
+  <!-- Updated path to use /static -->
+  <script src="/static/script.js"></script>
+</body>
+</html>
