@@ -29,6 +29,8 @@ Deployment-ready Structure: Static file serving, database migrations
 Version Control: Git & GitHub
 
 📂 Project Structure
+
+```
 project/
 ├── backend/
 │   ├── main.py          # FastAPI backend
@@ -40,6 +42,7 @@ project/
 ├── templates/
 │   └── index.html       # Item creation & QR display
 └── README.md
+```
 
 ## How It Works
 
@@ -54,6 +57,7 @@ Clicking or scanning the QR code loads the item detail page.
 
 # 🔧 Installation & Running Locally
 ## Clone repository
+```
 git clone https://github.com/yourusername/qr-item-app.git
 cd qr-item-app
 
@@ -62,7 +66,7 @@ pip install -r requirements.txt
 
 ## Run backend
 uvicorn main:app --reload
-
+```
 
 Then open http://127.0.0.1:8000 in your browser.
 
