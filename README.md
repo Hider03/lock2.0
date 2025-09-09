@@ -52,15 +52,15 @@ Clicking or scanning the QR code loads the item detail page.
 ## Screenshots / Demo
 
 
-## 🔧 Installation & Running Locally
-# Clone repository
+# 🔧 Installation & Running Locally
+## Clone repository
 git clone https://github.com/yourusername/qr-item-app.git
 cd qr-item-app
 
-# Install dependencies
+## Install dependencies
 pip install -r requirements.txt
 
-# Run backend
+## Run backend
 uvicorn main:app --reload
 
 
