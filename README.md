@@ -31,17 +31,24 @@ Version Control: Git & GitHub
 📂 Project Structure
 
 ```
-project/
+LOCK2.0/
+├── .db/
+│   └── items.db
 ├── backend/
-│   ├── main.py          # FastAPI backend
-│   ├── models.py        # SQLAlchemy models
-│   └── items.db         # SQLite database
-├── static/
-│   ├── style.css        # Frontend styling
-│   └── script.js        # Frontend logic
-├── templates/
-│   └── index.html       # Item creation & QR display
-└── README.md
+│   ├── __init__.py
+│   ├── crud.py
+│   ├── database.py
+│   ├── main.py
+│   ├── models.py
+│   ├── requirements.txt
+│   └── schemas.py
+├── frontend/
+│   ├── fonts/
+│   ├── index.html
+│   ├── item.html
+│   ├── script.js
+│   └── style.css
+└── .gitignore
 ```
 
 ## How It Works
@@ -68,7 +75,8 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Then open http://127.0.0.1:8000 in your browser.
+Then open http://127.0.0.1:8000 in your browser to run the api.
+You can host the frontend however you want. (I used ngrok)
 
 ## 🌟 Future Improvements
 
