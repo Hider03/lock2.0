@@ -60,6 +60,9 @@ A QR code is displayed linking to /items/{id}.
 Clicking or scanning the QR code loads the item detail page.
 
 ## Screenshots / Demo
+<img width="1421" height="1398" alt="Screenshot 2025-09-09 041551" src="https://github.com/user-attachments/assets/5f366ebb-a80b-4191-8ad0-5d57741708ed" />
+<img width="1418" height="1445" alt="Screenshot 2025-09-09 041642" src="https://github.com/user-attachments/assets/fa9c3681-ac41-4f35-837c-9d13c90c403c" />
+<img width="1433" height="1322" alt="Screenshot 2025-09-09 041656" src="https://github.com/user-attachments/assets/8d4e0a53-2dec-4da1-81b7-3374388a2856" />
 
 
 # 🔧 Installation & Running Locally
