@@ -65,14 +65,14 @@ Clicking or scanning the QR code loads the item detail page.
 # 🔧 Installation & Running Locally
 ## Clone repository
 ```
-git clone https://github.com/yourusername/qr-item-app.git
-cd qr-item-app
+git clone https://github.com/yourusername/lock2.0.git
+cd lock2.0
 
 ## Install dependencies
 pip install -r requirements.txt
 
-## Run backend
-uvicorn main:app --reload
+## Run backend in project main directory
+uvicorn backend.main:app --reload
 ```
 
 Then open http://127.0.0.1:8000 in your browser to run the api.
