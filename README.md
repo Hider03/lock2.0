@@ -68,7 +68,7 @@ Clicking or scanning the QR code loads the item detail page.
 # 🔧 Installation & Running Locally
 ## Clone repository
 ```
-git clone https://github.com/yourusername/lock2.0.git
+git clone https://github.com/Hider03/lock2.0.git
 cd lock2.0
 
 ## Install dependencies
