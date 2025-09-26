@@ -1,22 +1,28 @@
-class User {
-    constructor(username, email, password) {
-        this.username = username;
-        this.email = email;
-        this.password = password; // In a real application, hash this password
-    }
+const form = document.getElementById("registerForm");
 
-    register() {
-        fetch("/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: this.username, email: this.email, password: this.password })
-        });
-    }
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const registerUser = {
+    username: document.getElementById("username").value,
+    email: document.getElementById("email").value,
+    first_name: document.getElementById("first_name").value,
+    last_name: document.getElementById("last_name").value,
+    password: document.getElementById("password").value,
+    confirm_password: document.getElementById("confirm").value,
+  };
 
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(registerUser),
+  });
 
-    // In a real application, you would add methods for validating,
-    // saving to a database, etc.
-    displayUserInfo() {
-        return `Username: ${this.username}, Email: ${this.email}`;
-    }
-}
+  if (res.ok) {
+    alert("Registration successful!");
+    window.location.href = "/login";
+  } else {
+    const error = await res.json();
+    alert(`Error: ${error.detail}`);
+  }
+});
+

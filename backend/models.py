@@ -1,6 +1,6 @@
 # backend/models.py
 import secrets
-from sqlalchemy import Column, String
+from sqlalchemy import Boolean, Column, String
 from .database import Base
 
 def generate_secure_id():
@@ -24,6 +24,6 @@ class User(Base):
     first_name  = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
-    is_active = Column(bool, default=False)
-    is_superuser = Column(bool, default=False)
-    is_verified = Column(bool, default=False)
+    is_active = Column(Boolean, default=False)
+    is_superuser = Column(Boolean, default=False)
+    is_verified = Column(Boolean, default=False)

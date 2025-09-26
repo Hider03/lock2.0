@@ -3,8 +3,9 @@ from typing import Optional
 
 class UserBase(BaseModel):
     username: str
-    email: str
-    full_name: Optional[str] = None
+    email: str    
+    first_name: str 
+    last_name: str   
     is_active: bool = True
     is_superuser: bool = False
     is_verified: bool = False
@@ -19,6 +20,10 @@ class User(UserBase):
     class Config:
         from_attributes = True  # for Pydantic v2
 
+        
+class LoginRequest(BaseModel):
+    username: str      # or email if you prefer
+    password: str
         
 class ItemBase(BaseModel):
     item_description: str

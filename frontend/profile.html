@@ -6,11 +6,13 @@
 <title>LAF Dashboard</title>
 <style>
     /* --- Header layout --- */
-    header {
+        /* --- Header layout --- */
+    header {    
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 1rem;
+        justify-content: space-between; /* push user info to the right */
+        padding: 1rem 2rem;
+        color: #000000;
     }
 
     /* --- Make the section nearly fill the screen --- */
@@ -31,14 +33,28 @@
         width: 90vw;   /* take 90% of viewport width */
         height: 80vh;  /* take 80% of viewport height */
     }
+        /* --- Logo styling --- */
+    #logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ff1500; /* eye-catching color */
+        cursor: pointer;  /* shows it’s clickable */
+        transition: transform 0.2s, color 0.2s;
+    }
+
+    #logo:hover {
+        transform: scale(1.1); /* small grow effect on hover */
+        color: #ffa07a;         /* lighter color on hover */
+    }
+
 
 
 </style>
 </head>
 <body>
 <header>
-    <h1>LAF</h1>
-    <p>Username</p>
+    <h1 id="logo">LAF</h1>
+    <p id="userInfo">loading...</p>
     <img src="profile-pic.jpg" alt="Profile Picture" width="100">
 </header>
 
@@ -51,6 +67,8 @@
         <button>Settings</button>
         <button>Help and FAQ</button>
     </section>
+    <script src="/static/profile.js"></script>
+    <script src="/static/script.js"></script>
 </main>
 </body>
 </html>

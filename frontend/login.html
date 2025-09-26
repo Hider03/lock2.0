@@ -4,15 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login – LAF</title>
+    <style>
+            /* --- Header layout --- */
+        header {    
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* push user info to the right */
+            padding: 1rem 2rem;
+            color: #000000;
+        }
+            /* --- Logo styling --- */
+        #logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff1500; /* eye-catching color */
+            cursor: pointer;  /* shows it’s clickable */
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        #logo:hover {
+            transform: scale(1.1); /* small grow effect on hover */
+            color: #ffa07a;         /* lighter color on hover */
+        }
+
+
+
+    </style>
 </head>
 <body>
     <header>
-        <h1>LAF – Log In</h1>
-        <p>Access your account below.</p>
+        <h1 id="logo">LAF</h1>
+
     </header>
+    <h2>Login</h2>
+    <p>Access your account below.</p>
 
     <main>
-        <form action="/login" method="post">
+        <form id="loginForm">
             <label for="username">Username or Email:</label><br>
             <input type="text" id="username" name="username" required><br><br>
 
@@ -22,7 +50,18 @@
             <button type="submit">Log In</button>
         </form>
 
-        <p>Don’t have an account? <a href="register.html">Register here</a></p>
+        <p>Don’t have an account? <a href="#" id="registerLink">Register here</a></p>
     </main>
+      <script src="/static/login.js"></script>
+      <script src="/static/script.js"></script>
+      <script>
+        const registerLink = document.getElementById("registerLink");
+
+        registerLink.addEventListener("click", (e) => {
+            e.preventDefault();               // stop the default anchor behavior
+            window.location.href = "/register"; // navigate to FastAPI register route
+        });
+
+</script>
 </body>
 </html>

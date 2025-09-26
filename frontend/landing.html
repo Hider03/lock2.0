@@ -20,6 +20,19 @@
         justify-content: center;
         padding: 1rem;
     }
+        /* --- Logo styling --- */
+    #logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ff1500; /* eye-catching color */
+        cursor: pointer;  /* shows it’s clickable */
+        transition: transform 0.2s, color 0.2s;
+    }
+
+    #logo:hover {
+        transform: scale(1.1); /* small grow effect on hover */
+        color: #ffa07a;         /* lighter color on hover */
+    }
 
 
 
@@ -27,11 +40,11 @@
 </head>
 <body>
     <header>
-        <h1>LAF</h1>
+        <h1 id="logo">LAF</h1>
         <p><strong>Lock 2.0</strong> – Secure • Simple • Smart</p>
         <nav>
-            <a href="register.html">Register</a> |
-            <a href="login.html">Log In</a>
+            <a href="#" id="registerLink">Register</a> |
+            <a href="#" id="loginLink">Login</a>
         </nav>
     </header>
 
@@ -62,8 +75,8 @@
                 and experience the future of personal inventory management.
             </p>
             <p>
-                <a href="register.html">Register</a> |
-                <a href="login.html">Log In</a>
+            <a href="#" id="registerLink">Register</a> |
+            <a href="#" id="loginLink">Login</a>
             </p>
         </section>
     </main>
@@ -71,5 +84,22 @@
     <footer>
         <p>&copy; 2025 LAF – Lock 2.0. All rights reserved.</p>
     </footer>
+    <script src="/static/script.js"></script>
+    <script>
+        const registerLink = document.getElementById("registerLink");
+
+        registerLink.addEventListener("click", (e) => {
+            e.preventDefault();               // stop the default anchor behavior
+            window.location.href = "/register"; // navigate to FastAPI register route
+        });
+
+        const loginLink = document.getElementById("loginLink");
+
+        loginLink.addEventListener("click", (e) => {
+            e.preventDefault();               // stop the default anchor behavior
+            window.location.href = "/login"; // navigate to FastAPI register route
+        });
+    </script>
+
 </body>
 </html>
