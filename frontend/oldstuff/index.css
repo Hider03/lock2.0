@@ -1,0 +1,14 @@
+/* Index page - Create Item form + QR area */
+:root{--bg:#f6fbff;--card:#ffffff;--accent:#0f172a;--muted:#334155}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--accent);}
+.container{max-width:980px;margin:40px auto;padding:24px;display:grid;grid-template-columns:1fr 360px;gap:28px}
+h1{margin:0 0 12px;font-size:26px}
+.form-section{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 24px rgba(15,23,42,0.06)}
+.form-section h2{margin-top:0;color:var(--accent)}
+input,textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #e6eef8;margin-bottom:10px;font-size:14px}
+button{background:linear-gradient(90deg,#06b6d4,#34d399);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.qr-section{background:#fff;padding:18px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;border:1px solid #eef6fb}
+#qr canvas{max-width:100%}
+.item-link-button, .download-button{margin-top:12px;padding:10px 12px;border-radius:8px;border:1px solid #e6eef8;background:transparent;cursor:pointer}
+@media (max-width:880px){.container{grid-template-columns:1fr;padding:16px}.qr-section{order:2}.form-section{order:1}}

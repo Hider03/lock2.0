@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAF Dashboard</title>
+<style>
+    /* --- Header layout --- */
+    header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    /* --- Make the section nearly fill the screen --- */
+    main {
+        min-height: calc(100vh - 120px); /* leave space for header */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    /* --- Responsive 2x3 grid --- */
+    section {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        grid-template-rows: repeat(3, minmax(150px, 1fr));
+        gap: 20px;
+        width: 90vw;   /* take 90% of viewport width */
+        height: 80vh;  /* take 80% of viewport height */
+    }
+
+
+</style>
+</head>
+<body>
+<header>
+    <h1>LAF</h1>
+    <p>Username</p>
+    <img src="profile-pic.jpg" alt="Profile Picture" width="100">
+</header>
+
+<main>
+    <section>
+        <button>Add Item</button>
+        <button>Your Items</button>
+        <button>Feed</button>
+        <button>Stats</button>
+        <button>Settings</button>
+        <button>Help and FAQ</button>
+    </section>
+</main>
+</body>
+</html>

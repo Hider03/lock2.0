@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Item – LAF / Lock 2.0</title>
+</head>
+<body>
+  <header>
+    <h1>Add New Item</h1>
+    <p><a href="dashboard.html">Back to Dashboard</a></p>
+  </header>
+
+  <main>
+    <form action="/add-item" method="post" enctype="multipart/form-data">
+      <label for="name">Item Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="description">Description:</label><br>
+      <textarea id="description" name="description" rows="4"></textarea><br><br>
+
+      <label for="category">Category:</label><br>
+      <input type="text" id="category" name="category"><br><br>
+
+      <label for="quantity">Quantity:</label><br>
+      <input type="number" id="quantity" name="quantity" min="0"><br><br>
+
+      <label for="location">Location / Storage:</label><br>
+      <input type="text" id="location" name="location"><br><br>
+
+      <label for="image">Upload Image:</label><br>
+      <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+      <button type="submit">Add Item</button>
+    </form>
+  </main>
+</body>
+</html>

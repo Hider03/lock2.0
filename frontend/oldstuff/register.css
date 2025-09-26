@@ -1,0 +1,11 @@
+/* Register page styles */
+:root{--bg:#f6fbff;--card:#fff;--accent:#06b6d4}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:var(--bg);color:#0f172a;display:flex;align-items:center;justify-content:center;height:100vh}
+.register-container{background:var(--card);padding:28px;border-radius:12px;box-shadow:0 6px 30px rgba(15,23,42,0.06);width:360px}
+.register-container h1{margin:0 0 14px}
+label{display:block;margin-bottom:10px;font-size:14px;color:#0b1220}
+input{width:100%;padding:10px;border-radius:8px;border:1px solid #eef6fb;margin-top:6px}
+button{margin-top:12px;width:100%;background:linear-gradient(90deg,#06b6d4,#34d399);color:white;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+#message{margin-top:10px;color:#475569}
+@media (max-width:480px){.register-container{width:92%;padding:18px}}

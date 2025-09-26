@@ -1,0 +1,9 @@
+/* Item detail page styles */
+:root{--bg:#f6fbff;--card:#fff;--muted:#475569}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:var(--bg);color:#0f172a;padding:28px}
+h1{margin:0 0 18px}
+#item{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,0.06);max-width:760px}
+#item p{margin:8px 0;color:var(--muted);line-height:1.5}
+#item strong{color:#0b1220}
+@media (max-width:680px){body{padding:14px}#item{padding:16px}}
