@@ -2,13 +2,14 @@ from sqlalchemy.orm import Session
 from .models import Item
 import secrets
 
-def create_item(db: Session, item_description, directions, dropoff_location, contact):
+def create_item(db: Session, item_description, directions, dropoff_location, contact, user_id):
     from .models import Item
     new_item = Item(
         item_description=item_description,
         directions=directions,
         dropoff_location=dropoff_location,
-        contact=contact
+        contact=contact,
+        user_id = user_id
     )
     db.add(new_item)
     db.commit()
@@ -17,7 +18,10 @@ def create_item(db: Session, item_description, directions, dropoff_location, con
 
 
 def get_item(db: Session, item_id: str):
-    return db.query(Item).filter(Item.id == item_id).first()
+    return db.query(Item).filter(Item.private_id == item_id).first()
+
+def get_item_by_public_id(db: Session, public_id: str):
+    return db.query(Item).filter(Item.public_id == public_id).first()
 
 
 def create_user(db: Session, username: str, email: str, first_name: str, last_name: str, password: str, is_active: bool = True, is_superuser: bool = False, is_verified: bool = False):
@@ -37,3 +41,4 @@ def create_user(db: Session, username: str, email: str, first_name: str, last_na
     db.commit()
     db.refresh(new_user)
     return new_user
+

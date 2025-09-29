@@ -5,6 +5,7 @@ form.addEventListener("submit", async (e) => {
   const registerUser = {
     username: document.getElementById("username").value,
     email: document.getElementById("email").value,
+    email_confirm: document.getElementById("email_confirm").value,
     first_name: document.getElementById("first_name").value,
     last_name: document.getElementById("last_name").value,
     password: document.getElementById("password").value,

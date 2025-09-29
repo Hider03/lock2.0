@@ -3,72 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAF Dashboard</title>
-<style>
-    /* --- Header layout --- */
-        /* --- Header layout --- */
-    header {    
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* push user info to the right */
-        padding: 1rem 2rem;
-        color: #000000;
-    }
-
-    /* --- Make the section nearly fill the screen --- */
-    main {
-        min-height: calc(100vh - 120px); /* leave space for header */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-    }
-
-    /* --- Responsive 2x3 grid --- */
-    section {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
-        grid-template-rows: repeat(3, minmax(150px, 1fr));
-        gap: 20px;
-        width: 90vw;   /* take 90% of viewport width */
-        height: 80vh;  /* take 80% of viewport height */
-    }
-        /* --- Logo styling --- */
-    #logo {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #ff1500; /* eye-catching color */
-        cursor: pointer;  /* shows it’s clickable */
-        transition: transform 0.2s, color 0.2s;
-    }
-
-    #logo:hover {
-        transform: scale(1.1); /* small grow effect on hover */
-        color: #ffa07a;         /* lighter color on hover */
-    }
-
-
-
-</style>
+<title>QRKey Dashboard</title>
+<link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 <header>
-    <h1 id="logo">LAF</h1>
-    <p id="userInfo">loading...</p>
-    <img src="profile-pic.jpg" alt="Profile Picture" width="100">
+    <h1 id="logo">QRKey</h1>
+    <div style="display: flex; align-items: center;">
+        <p id="userInfo">loading...</p>
+        <a href="#" id="logout">logout</a>
+    </div>
+
 </header>
 
 <main>
-    <section>
-        <button>Add Item</button>
-        <button>Your Items</button>
-        <button>Feed</button>
-        <button>Stats</button>
-        <button>Settings</button>
-        <button>Help and FAQ</button>
+    <section class="dashboard-grid">
+        <button id="add_items" class="dashboard-btn">Add Item</button>
+        <button id="your_items" class="dashboard-btn">Your Items</button>
+        <button class="dashboard-btn">Settings</button>
+        <button class="dashboard-btn">Help and FAQ</button>
     </section>
+</main>
     <script src="/static/profile.js"></script>
     <script src="/static/script.js"></script>
-</main>
+    <script>
+        const additem = document.getElementById("add_items"); // replace with your logo's ID
+
+        additem.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("/userinfo", {
+            method: "GET",
+            credentials: "include" // sends the JWT cookie
+            });
+
+            if (res.ok) {
+            // User is logged in → go to profile
+            window.location.href = "/additem";
+            } else {
+            // Not authenticated → go to homepage
+            window.location.href = "/";
+            }
+        } catch (err) {
+            // On error (e.g., network issues), just go to homepage
+            window.location.href = "/";
+        }
+        });
+
+        const youritems = document.getElementById("your_items"); // replace with your logo's ID
+
+        youritems.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("/userinfo", {
+            method: "GET",
+            credentials: "include" // sends the JWT cookie
+            });
+
+            if (res.ok) {
+            // User is logged in → go to profile
+            window.location.href = "/youritems";
+            } else {
+            // Not authenticated → go to homepage
+            window.location.href = "/";
+            }
+        } catch (err) {
+            // On error (e.g., network issues), just go to homepage
+            window.location.href = "/";
+        }
+        });
+
+
+        const logout = document.getElementById("logout"); // replace with your logo's ID
+        logout.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch("/logout", {
+            method: "POST",
+            credentials: "include" // sends the JWT cookie
+            });
+
+            if (res.ok) {
+            // User is logged in → go to profile
+            window.location.href = "/";
+            } else {
+            // Not authenticated → go to homepage
+            window.location.href = "/";
+            }
+        } catch (err) {
+            // On error (e.g., network issues), just go to homepage
+            window.location.href = "/";
+        }
+        });
+
+
+    </script>
 </body>
 </html>

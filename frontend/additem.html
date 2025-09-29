@@ -3,36 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Item – LAF / Lock 2.0</title>
-</head>
-<body>
-  <header>
-    <h1>Add New Item</h1>
-    <p><a href="dashboard.html">Back to Dashboard</a></p>
-  </header>
+  <title>Add Item – QRKeyF / Lock 2.0</title>
+  <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">QRKey</h1>
+      <nav>
+        <a href="/profile">Dashboard</a>
+    </nav>
+    </header>
 
   <main>
-    <form action="/add-item" method="post" enctype="multipart/form-data">
-      <label for="name">Item Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
+    <div class="form-card">
+      <h2>Add Item</h2>
+      <p style="text-align: center; margin-bottom: 2rem;">Fill in the details for your item here.</p>
 
-      <label for="description">Description:</label><br>
-      <textarea id="description" name="description" rows="4"></textarea><br><br>
+      <form  id="addItemForm">
+        <label for="item_description ">Item Name:</label><br>
+        <input type="item_description" id="item_description" name="item_description" required><br>
 
-      <label for="category">Category:</label><br>
-      <input type="text" id="category" name="category"><br><br>
+        <label for="directions">Directions if Found:</label><br>
+        <textarea id="directions" name="directions" rows="4"></textarea><br>
 
-      <label for="quantity">Quantity:</label><br>
-      <input type="number" id="quantity" name="quantity" min="0"><br><br>
+        <label for="dropoff_location">Preferred Dropoff Location:</label><br>
+        <input type="dropoff_location" id="dropoff_location" name="dropoff_location"><br>
 
-      <label for="location">Location / Storage:</label><br>
-      <input type="text" id="location" name="location"><br><br>
+        <label for="contact">Contact info (optional):</label><br>
+        <input type="contact" id="contact" name="contact"><br>
 
-      <label for="image">Upload Image:</label><br>
-      <input type="file" id="image" name="image" accept="image/*"><br><br>
-
-      <button type="submit">Add Item</button>
-    </form>
+        <button id="submit" type="submit">Add item and Generate QR code</button>
+      </form>
+    </div>
   </main>
+  <script src="/static/script.js"></script>
+  <script src="/static/additem.js"></script>
 </body>
 </html>
