@@ -48,7 +48,7 @@ async function loadItems() {
             : ""
         }
         |
-        <a href="#" class="item-link">Remove</a>
+        <a href="/remove/${item.private_id}" class="item-link">Remove</a>
       </p>
     `;
 

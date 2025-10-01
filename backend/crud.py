@@ -20,6 +20,13 @@ def create_item(db: Session, item_description, directions, dropoff_location, con
 def get_item(db: Session, item_id: str):
     return db.query(Item).filter(Item.private_id == item_id).first()
 
+def delete_item(db: Session, item_id: str):
+    item = db.query(Item).filter(Item.private_id == item_id).first()
+    if item:
+        db.delete(item)
+        db.commit()
+    return item
+
 def get_item_by_public_id(db: Session, public_id: str):
     return db.query(Item).filter(Item.public_id == public_id).first()
 

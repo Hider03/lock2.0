@@ -1,14 +1,16 @@
 /* --- Global Reset & Typography --- */
+
+/* --- Global Reset & Typography (Dark Mode) --- */
 :root {
     --primary-color: #d60000;   /* Bright Red/Orange for QRKey logo and accents */
-    --primary-hover: #c00d00;
-    --secondary-color: #333333; /* Dark text */
-    --background-light: #f4f7f6; /* Light background for body */
-    --background-card: #ffffff; /* White background for forms/cards */
-    --border-color: #dddddd;
-    --shadow-color: rgba(0, 0, 0, 0.08);
-    --link-color: #007bff;
-    --link-hover: #0056b3;
+    --primary-hover: #c00d00;  /* Darker red on hover */
+    --secondary-color: #e0e0e0; /* Light gray for text */
+    --background-light: #121212; /* Dark page background */
+    --background-card: #1e1e1e; /* Slightly lighter background for cards/forms */
+    --border-color: #333333;     /* Subtle dark border */
+    --shadow-color: rgba(0, 0, 0, 0.5); /* Deeper shadow for dark theme */
+    --link-color: #4da6ff;       /* Soft blue for links */
+    --link-hover: #1a73e8;       /* Stronger blue on hover */
 }
 
 body {

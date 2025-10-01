@@ -29,6 +29,7 @@ class Item(Base):
 
     private_id = Column(String, primary_key=True, default=generate_secure_id)
     public_id  = Column(String, unique=True, index=True, default=generate_secure_id)
+    # you can remove the public id and use the private one
     item_description = Column(String, nullable=False)
     directions       = Column(String, nullable=False)
     dropoff_location = Column(String, nullable=False)

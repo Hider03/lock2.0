@@ -20,7 +20,7 @@
     <section class="dashboard-grid">
         <button id="add_items" class="dashboard-btn">Add Item</button>
         <button id="your_items" class="dashboard-btn">Your Items</button>
-        <button class="dashboard-btn">Settings</button>
+        <button id="settings"class="dashboard-btn">Settings</button>
         <button class="dashboard-btn">Help and FAQ</button>
     </section>
 </main>
@@ -75,6 +75,29 @@
         }
         });
 
+        const settings = document.getElementById("settings"); // replace with your logo's ID
+
+        settings.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("/userinfo", {
+            method: "GET",
+            credentials: "include" // sends the JWT cookie
+            });
+
+            if (res.ok) {
+            // User is logged in → go to profile
+            window.location.href = "/settings";
+            } else {
+            // Not authenticated → go to homepage
+            window.location.href = "/";
+            }
+        } catch (err) {
+            // On error (e.g., network issues), just go to homepage
+            window.location.href = "/";
+        }
+        });
 
         const logout = document.getElementById("logout"); // replace with your logo's ID
         logout.addEventListener("click", async (e) => {

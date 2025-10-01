@@ -6,6 +6,31 @@
     <title>QRKey – The Secure Item Recovery Service</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
+        /* --- Desktop Layout Enhancements (Default) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        header p {
+            flex-grow: 1;
+            text-align: center; /* Center the tagline */
+            font-size: 1rem;
+            color: #555;
+        }
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+        .use-case-container {
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            gap: 40px; 
+            margin-top: 1.5rem;
+        }
+
         /* New styles for a professional marketing layout */
         .landing-section {
             padding: 3.5rem 0; /* Increase vertical padding for more space */
@@ -54,7 +79,7 @@
             color: var(--primary-color);
         }
 
-    /* --- Primary CTA Button Styling (Kept user's padding fix) --- */
+    /* --- Primary CTA Button Styling (Desktop Default) --- */
     #registerLink_hero {
         padding-top: 1rem !important;
         padding-bottom: 0.75rem !important; 
@@ -69,6 +94,74 @@
         text-align: center;
         /* Added a slight shadow for marketing emphasis */
         box-shadow: 0 4px 8px rgba(255, 21, 0, 0.4); 
+    }
+    
+    /* The footer CTA button needs the same desktop styles overridden below */
+    #registerLink_footer {
+        width: 300px; 
+        padding: 1rem 3rem; 
+        margin: 0 auto; 
+        display: block; 
+        font-size: 1.25rem; 
+        font-weight: 600;
+    }
+
+
+    /* ------------------------------------------------------------------ */
+    /* --- MOBILE RESPONSIVENESS (BREAKPOINT: 768px) --- */
+    /* ------------------------------------------------------------------ */
+    @media (max-width: 768px) {
+        /* General adjustments */
+        .landing-section {
+            padding: 2rem 1rem; /* Reduce vertical and add horizontal padding */
+        }
+        .landing-section h1 {
+            font-size: 1.8rem; /* Shrink hero title */
+        }
+        .landing-section h2 {
+            font-size: 1.5rem; /* Shrink section titles */
+        }
+
+        /* Header stacking */
+        header {
+            flex-direction: column;
+            padding: 1rem;
+        }
+        header p { /* Tagline */
+            margin: 0.5rem 0 1rem 0;
+            text-align: center;
+        }
+        header nav {
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        /* Feature/Benefit Grid stacking */
+        .benefit-grid {
+            flex-direction: column; /* Stack cards vertically */
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        .benefit-card {
+            padding: 1.5rem;
+            min-height: auto; /* Allow height to adjust */
+        }
+
+        /* Use Case List stacking */
+        .use-case-container {
+            flex-direction: column; /* Stack the two lists vertically */
+            gap: 20px !important;
+            padding: 0 1rem;
+            width: auto;
+        }
+
+        /* CTA button size reduction for mobile */
+        #registerLink_hero, #registerLink_footer {
+            width: 240px !important; /* Smaller fixed width */
+            padding: 0.75rem 2rem !important; /* Smaller padding */
+            font-size: 1.1rem !important; /* Smaller font */
+            margin: 0 auto !important; /* Keep centered */
+        }
     }
     </style>
 </head>
@@ -86,13 +179,16 @@
         <section class="landing-section" style="text-align: center; padding: 5rem 0 3rem 0;">
             <h1>Instantly Connect With Your Lost Belongings.</h1>
             <p style="font-size: 1.5rem; max-width: 900px; margin: 1rem auto 3rem auto; font-weight: 300;">
-                Generate permanent, scannable QR tags that guarantee <strong>private and immediate communication</strong> when your item is found. Stop worrying about what you might lose.
+                Generate permanent, scannable QR tags that guarantee <strong>private and immediate communication</strong> when your item is found.
             </p>
             <p>
                 <a href="#" id="registerLink_hero" class="dashboard-btn">
                     Start Recovering Your Items Today
                 </a>
             </p>
+        </section>
+        <section>
+            <div id="itemsList"></div>
         </section>
 
         <section class="landing-section">
@@ -130,7 +226,7 @@
         
         <section class="landing-section">
             <h2 style="text-align: center; margin-bottom: 2rem;">Built for Every Item You Can't Afford to Lose</h2>
-            <div style="max-width: 800px; margin: 0 auto; display: flex; gap: 40px; margin-top: 1.5rem;">
+            <div class="use-case-container">
                 <ul class="use-case-list" style="flex: 1;">
                     <li>Keys, Wallets, and ID cards</li>
                     <li>Laptops, Tablets, and Mobile Devices</li>
@@ -152,7 +248,7 @@
                 Start your free account today and experience worry-free ownership.
             </p>
             <p>
-                <a href="#" id="registerLink_footer" class="dashboard-btn" style="background-color: #fff; color: var(--primary-color); border: 2px solid #fff; width: 300px; padding: 1rem 3rem; margin: 0 auto; display: block; font-size: 1.25rem; font-weight: 600;">
+                <a href="#" id="registerLink_footer" class="dashboard-btn" style="background-color: #fff; color: var(--primary-color); border: 2px solid #fff;">
                     Sign Up Now
                 </a>
             </p>

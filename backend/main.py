@@ -155,6 +155,19 @@ def create_item_endpoint(
         user_id=current_user["user_id"]
     )
 
+@app.get("/remove/{item_id}")
+def remove_item_endpoint(
+    item_id: str,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    """Remove an item owned by the logged-in user"""
+    item = crud.get_item(db, item_id)
+    if not item or item.user_id != current_user["user_id"]:
+        raise HTTPException(status_code=404, detail="Item not found or not authorized")
+    
+    crud.delete_item(db, item_id)
+    return FileResponse("frontend/youritems.html")
 
 @app.get("/priv/getitems")
 def get_user_items(
@@ -298,6 +311,11 @@ def profile(current_user: dict = Depends(get_current_user)):
 def serve_profile():
     """Serve profile HTML page"""
     return FileResponse("frontend/profile.html")
+
+@app.get("/settings")
+def serve_profile():
+    """Serve profile HTML page"""
+    return FileResponse("frontend/settings.html")
 
 
 # ------------------------
