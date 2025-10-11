@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QRKey Settings</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<style>
+.section {
+  width: 400px;
+  margin: 0 auto;   /* centers the block horizontally */
+  padding: 20px;
+  text-align: left; /* makes sure text doesn’t center */
+}
+
+</style>
+<body>
+<header>
+    <h1 id="logo">QRKey</h1>
+    <div style="display: flex; align-items: center;">
+        <p id="userInfo">loading...</p>
+        <a href="#" id="logout">logout</a>
+    </div>
+
+</header>
+
+<main>
+    <div id="settingsContainer" class="section">
+        <section id="personal_info" class="settings-section">
+            <h2>Personal Information</h2>
+            <p>Manage your personal details and account settings.</p>
+            <input type="username" id="username" name="username"><br>
+            <!-- <button id="edit_personal_info" class="settings-btn">Edit Personal Info</button> -->
+        </section>
+        <section id="appearance" class="settings-section">
+            <h2>Appearance</h2>
+            <p>Customize the look and feel of your QRKey experience.</p>
+            <!-- <button id="change_theme" class="settings-btn">Change Theme</button> -->
+        </section>
+        <section id="account_security" class="settings-section">
+            <h2>Account Security</h2>
+            <p>Update your password and manage security settings.</p>
+            <!-- <button id="update_password" class="settings-btn">Update Password</button>  -->
+        </section>
+    </div>
+</main>
+    <script src="/static/profile.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

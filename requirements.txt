@@ -1,0 +1,11 @@
+fastapi
+uvicorn 
+sqlalchemy 
+qrcode[pil]
+passlib
+PyJWT
+python-dotenv
+pydantic-settings
+argon2_cffi
+fastapi-mail
+python-multipart

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Item Found – QRKey</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1 id="logo">QRKey</h1>
+    </header>
+    <main>
+        <div class="public-item-card">
+            <h2>Lost Item Found!</h2>
+            <p>Thank you for scanning the item. Please see the information below for drop-off details or send a message to the owner.</p>
+
+            <div id="itemDetails" style="text-align: left; margin-bottom: 2rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                <p>Loading item details...</p>
+            </div>
+
+            <div id="contactSection">
+                <h3>Contact the Owner</h3>
+                <p>If you'd like to reach out to the owner directly, please use the form below.</p>
+
+                <label for="finderContact">Your Contact Email/Phone (Optional):</label>
+                <input type="text" id="finderContact" placeholder="Your email or phone number">
+
+                <label for="finderMessage">Your Message to the Owner:</label>
+                <textarea id="finderMessage" rows="4" placeholder="e.g., I found it at the park entrance. I can drop it off at..."></textarea>
+                
+                <button id="sendButton">Send Message</button>
+                <p id="status" style="margin-top: 1rem; font-weight: 500;"></p>
+            </div>
+        </div>
+    </main>
+    <script src="/static/script.js"></script>
+    <script>
+        const publicId = window.location.pathname.split("/").pop();
+
+        // 1. Load Item Data
+        async function loadPublicItem() {
+            const res = await fetch(`/api/pub/item/${publicId}`);
+            const itemDetails = document.getElementById("itemDetails");
+
+            if (!res.ok) {
+                itemDetails.innerHTML = "<p style='color: var(--primary-color); font-weight: bold;'>Item not found or link is invalid.</p>";
+                // Hide contact form if item isn't found
+                document.getElementById("contactSection").style.display = 'none'; 
+                return;
+            }
+
+            const item = await res.json();
+
+            // Populate Item Details
+            itemDetails.innerHTML = `
+                <p><strong>Item Description:</strong> ${item.item_description}</p>
+                <p><strong>Directions for Drop-off:</strong> ${item.directions}</p>
+                <p><strong>Preferred Drop-off Location:</strong> ${item.dropoff_location}</p>
+                ${item.contact ? `<p><strong>Owner Contact:</strong> ${item.contact}</p>` : ''}
+            `;
+        }
+
+        // 2. Handle Message Sending
+        async function sendMessage() {
+            const message = document.getElementById("finderMessage").value.trim();
+            const contact = document.getElementById("finderContact").value.trim(); // Get finder's contact info
+            const statusElement = document.getElementById("status");
+            statusElement.textContent = "Sending...";
+
+            if (!message) {
+                statusElement.textContent = "Please write a message first.";
+                return;
+            }
+            
+            // NOTE: Assuming your FastAPI endpoint handles a JSON payload with 'message' and 'finder_contact'.
+            // If your backend only expects 'message', adjust this body back.
+            const payload = {
+                message: message,
+                finder_contact: contact // Pass the finder's contact info to the backend
+            };
+
+
+            const res = await fetch(`/api/pub/item/${publicId}/contact`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                statusElement.textContent = "✅ Email sent successfully! The owner will be in touch.";
+                document.getElementById("finderMessage").value = "";
+                document.getElementById("finderContact").value = "";
+            } else {
+                statusElement.textContent = "⚠️ Failed to send email. Please try again or use the listed contact info.";
+            }
+        }
+
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+        loadPublicItem();
+    </script>
+</body>
+</html>

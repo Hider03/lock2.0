@@ -1,27 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Item Detail</title>
+  <title>Edit Item</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Item Details</h1>
-  <div id="item"></div>
+  <header>
+    <h1 id="logo">QRKey</h1>
+    <nav>
+      <a href="/youritems">Back to Items</a>
+    </nav>
+  </header>
+  <main>
+    <div class="form-card">
+      <h2>Edit Item</h2>
 
+      <form id="editForm">
+        <label>
+          Description:
+          <input type="text" id="itemDescription" required>
+        </label>
+        <label>
+          Directions:
+          <textarea id="itemDirections" rows="3" required></textarea>
+        </label>
+        <label>
+          Drop-off Location:
+          <input type="text" id="itemDropoff" required>
+        </label>
+        <label>
+          Contact:
+          <input type="text" id="itemContact">
+        </label>
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </main>
   <script>
     const itemId = window.location.pathname.split("/").pop();
-    fetch(`/api/items/${itemId}`)
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("item").innerHTML = `
-          <p><strong>Item Description:</strong> ${data.item_description}</p>
-          <p><strong>Directions:</strong> ${data.directions}</p>
-          <p><strong>Dropoff Location:</strong> ${data.dropoff_location}</p>
-          <p><strong>Contact:</strong> ${data.contact}</p>
-        `;
+    const form = document.getElementById("editForm");
+
+    async function loadItem() {
+      const res = await fetch(`/api/priv/item/${itemId}`, { credentials: "include" });
+      if (!res.ok) {
+        document.body.innerHTML = "<h2>Item not found or unauthorized.</h2>";
+        return;
+      }
+      const item = await res.json();
+      document.getElementById("itemDescription").value = item.item_description;
+      document.getElementById("itemDirections").value = item.directions;
+      document.getElementById("itemDropoff").value = item.dropoff_location;
+      document.getElementById("itemContact").value = item.contact ?? "";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        item_description: document.getElementById("itemDescription").value,
+        directions: document.getElementById("itemDirections").value,
+        dropoff_location: document.getElementById("itemDropoff").value,
+        contact: document.getElementById("itemContact").value
+      };
+
+      const res = await fetch(`/api/priv/item/${itemId}`, {
+        method: "PUT",             // ✅ Update item
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
       });
+
+      if (res.ok) {
+        alert("Item updated successfully!");
+        window.location.href = "/youritems";
+      } else {
+        alert("Failed to update item.");
+      }
+    });
+
+    loadItem();
   </script>
+  <script src="/static/script.js"></script>
 </body>
 </html>

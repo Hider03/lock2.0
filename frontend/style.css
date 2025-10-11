@@ -1,355 +1,272 @@
-/* Dark theme styling for QR Item App */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* --- Global Reset & Typography --- */
 
-@font-face {
-  font-family: 'Pickyside';
-  src: url('fonts/PickysideRegular-vn7w4.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+/* --- Global Reset & Typography (Dark Mode) --- */
+:root {
+    --primary-color: #d60000;   /* Bright Red/Orange for QRKey logo and accents */
+    --primary-hover: #c00d00;  /* Darker red on hover */
+    --secondary-color: #e0e0e0; /* Light gray for text */
+    --background-light: #121212; /* Dark page background */
+    --background-card: #1e1e1e; /* Slightly lighter background for cards/forms */
+    --border-color: #333333;     /* Subtle dark border */
+    --shadow-color: rgba(0, 0, 0, 0.5); /* Deeper shadow for dark theme */
+    --link-color: #4da6ff;       /* Soft blue for links */
+    --link-hover: #1a73e8;       /* Stronger blue on hover */
 }
 
 body {
-  font-family: 'Pickyside', sans-serif;
-  background: #1a202c;
-  min-height: 100vh;
-  color: #e2e8f0;
-  line-height: 1.6;
-  padding: 20px;
-  font-size: 18px; /* Increased base font size */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
 
-h1 {
-  text-align: center;
-  color: white;
-  margin-bottom: 40px;
-  font-size: 2.8rem; /* Bigger heading */
-  font-weight: normal;
-  letter-spacing: 1px;
-  font-family: 'Pickyside', sans-serif;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  text-transform: uppercase;
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-/* Two-column layout */
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  align-items: start;
+a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
 }
 
-/* Left column - Form */
-.form-section {
-  background: #4a5568;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+/* --- Header & Navigation --- */
+header {
+    background-color: var(--background-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-.form-section h2 {
-  color: white;
-  margin-bottom: 25px;
-  font-size: 2rem; /* Larger section heading */
-  font-weight: normal;
-  font-family: 'Pickyside', sans-serif;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  letter-spacing: 0.5px;
+#logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+#logo:hover {
+    transform: scale(1.05);
+    color: var(--primary-hover);
 }
 
-/* Input and textarea: Use system font, not Pickyside, and larger size */
-input, textarea {
-  width: 100%;
-  padding: 16px; /* Slightly more padding */
-  border: none;
-  border-radius: 10px;
-  font-size: 18px; /* Larger font */
-  background: white;
-  color: #2d3748;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Standard system font */
+header nav a,
+header #logout,
+header #userInfo {
+    margin-left: 1.5rem;
+    font-weight: 500;
+    color: var(--secondary-color);
 }
 
-input:focus, textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  transform: translateY(-2px);
+/* --- Main Content Layout --- */
+main {
+    padding: 2rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-input::placeholder, textarea::placeholder {
-  color: #a0aec0;
-  font-weight: 500;
+/* --- Cards/Forms Container (Login, Register, Add Item, Edit Item) --- */
+.auth-container,
+.form-card {
+    background-color: var(--background-card);
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.auth-container h2,
+.form-card h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+}
+
+/* --- Form Styling --- */
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+input[type="item_description"],
+input[type="dropoff_location"],
+input[type="contact"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box; /* Important for padding/border not to increase width */
+    margin-top: 0.25rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(255, 21, 0, 0.2);
+    outline: none;
 }
 
 textarea {
-  min-height: 120px;
-  resize: vertical;
+    resize: vertical;
 }
 
-button {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px; /* Larger button text */
-  font-weight: normal;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid #4a5568;
-  font-family: 'Pickyside', sans-serif;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+button[type="submit"],
+.dashboard-btn,
+button#submit {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-button:hover {
-  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-  border-color: #718096;
+button[type="submit"]:hover,
+.dashboard-btn:hover,
+button#submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
 }
 
-button:active {
-  transform: translateY(0);
+/* --- Landing Page Sections --- */
+.landing-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Right column - QR Code */
-.qr-section {
-  background: #4a5568;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+.landing-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
-#qr {
-  text-align: center;
+.landing-section ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+    padding-left: 0;
 }
 
-#qr canvas {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  margin-bottom: 20px;
-}
-
-/* Item button styling */
-#item-buttons {
-  margin-top: 20px;
-}
-
-.item-link-button {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px; /* Larger font */
-  font-weight: normal;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: 'Pickyside', sans-serif;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
-  border: 2px solid #3182ce;
-}
-
-.item-link-button:hover {
-  background: #3182ce;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.item-link-button:active {
-  transform: translateY(0);
-}
-
-.download-button {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px; /* Larger font */
-  font-weight: normal;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 10px;
-  font-family: 'Pickyside', sans-serif;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-  border: 2px solid #059669;
-}
-
-.download-button:hover {
-  background: #059669;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.download-button:active {
-  transform: translateY(0);
-}
-
-/* Item details styling */
-#item {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #4a5568;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Explicit system font */
-}
-
-#item p {
-  margin-bottom: 20px;
-  padding: 20px;
-  background: #718096;
-  border-radius: 10px;
-  border-left: 4px solid #000000;
-  transition: all 0.3s ease;
-  font-size: 18px;
-  color: #e2e8f0;
-  line-height: 1.6;
-  font-family: inherit; /* Ensures it respects parent (system font) */
-}
-
-#item p:hover {
-  transform: translateX(5px);
-  background: #805ad5;
-}
-
-#item strong {
-  color: #a9b730;
-  display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-  font-family: inherit; /* Prevents fallback to Pickyside */
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  body {
-    font-size: 16px; /* Responsive base size */
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    padding: 0 10px;
-  }
-
-  .container {
-    grid-template-columns: 1fr;
+/* --- Your Items List (Dashboard) --- */
+#itemsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    max-width: 100%;
-  }
-
-  .form-section h2 {
-    font-size: 1.7rem;
-    margin-bottom: 20px;
-  }
-
-  input, textarea {
-    padding: 14px;
-    font-size: 16px; /* Prevent zoom on iOS, still readable */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  textarea {
-    min-height: 90px;
-  }
-
-  button, .item-link-button, .download-button {
-    padding: 14px;
-    font-size: 16px;
-  }
+    margin-top: 2rem;
 }
 
-/* Extra small devices */
-@media (max-width: 480px) {
-  body {
-    font-size: 15px;
-    padding: 5px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-  }
-
-  .form-section, .qr-section, #item {
-    padding: 18px;
-    margin: 0;
-    border-radius: 10px;
-  }
-
-  .form-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-
-  input, textarea {
-    padding: 12px;
-    font-size: 15px;
-    margin-bottom: 15px;
-  }
-
-  textarea {
-    min-height: 80px;
-  }
-
-  button, .item-link-button, .download-button {
-    padding: 12px;
-    font-size: 14px;
-  }
+.item-card {
+    background-color: var(--background-card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: transform 0.2s;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.item-card .item-actions {
+    margin-top: 1rem;
+    text-align: center; /* This is the key change */
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    
+    .item-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--shadow-color);
+    }
+
+    .item-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .item-info {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        
+    }
 }
 
-::-webkit-scrollbar-track {
-  background: #4a5568;
-  border-radius: 4px;
+.item-card img {
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    /* Centering the image element itself */
+    margin-left: auto; 
+    margin-right: auto;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #718096;
-  border-radius: 4px;
+/* --- Public Item View --- */
+.public-item-card {
+    text-align: center;
+    background-color: var(--background-card);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    max-width: 600px;
+    margin: 3rem auto;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #805ad5;
+.public-item-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
 }
+
+.public-item-card p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.public-item-card strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* --- Profile Dashboard Grid --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 5%;
+}
+
+.dashboard-btn {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* --- Utility/Misc --- */
+#userInfo {
+    font-weight: 600;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 5%;
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – QRKey</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1 id="logo">QRKey</h1>
+    </header>
+    <main>
+        <div class="auth-container">
+            <h2>Login</h2>
+            <p style="text-align: center;">Access your account below.</p>
+
+            <form id="loginForm">
+                <label for="username">Username or Email:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <button type="submit">Log In</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem;">Don’t have an account? <a href="#" id="registerLink">Register here</a></p>
+        </div>
+    </main>
+    <script src="/static/login.js"></script>
+    <script src="/static/script.js"></script>
+    <script>
+        const registerLink = document.getElementById("registerLink");
+
+        registerLink.addEventListener("click", (e) => {
+            e.preventDefault();               // stop the default anchor behavior
+            window.location.href = "/register"; // navigate to FastAPI register route
+        });
+    </script>
+</body>
+</html>
