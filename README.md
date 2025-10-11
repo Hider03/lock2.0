@@ -29,6 +29,8 @@ python -m venv .venv
 ## Install dependencies
 pip install -r requirements.txt
 
+## At this point you should fill out your own .env file using the example.env provided
+
 ## Run backend in project main directory
 uvicorn backend.main:app --reload
 ```
