@@ -105,9 +105,9 @@ Profile page
 Item Creation page
 <img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-additem-2025-10-10-19_53_14" src="https://github.com/user-attachments/assets/fa06d7f4-5385-452d-b3de-d95fe094d81b" />
 Item page (Only visable to a logged in user)
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-youritems-2025-10-10-19_55_56" src="https://github.com/user-attachments/assets/1262b85d-266c-44d6-9bb1-a500fdd1c1d0" />
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-youritems-2025-10-10-20_01_38" src="https://github.com/user-attachments/assets/d2413050-c87e-45c5-8efc-686c80e8a63a" />
 Public Item page (When QR code is scanned)
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-pub-getitem-62565c47227486cd-2025-10-10-19_56_06" src="https://github.com/user-attachments/assets/6eb90af7-d4a6-4a5b-9f31-847510dc92ca" />
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-pub-getitem-62565c47227486cd-2025-10-10-20_01_46 (1)" src="https://github.com/user-attachments/assets/19732282-2c6e-4ded-9dcd-409b6efffb46" />
 
 ## 🌟 Future Improvements
 
