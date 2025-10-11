@@ -80,27 +80,34 @@ LOCK2.0/
 
 ## How It Works
 
-User creates account. (The users information gets added to the SQLite Database file with the password being hashed using argon2)
-User logs in with the created account. (An api call is made to check the users hashed password with the one used to log in and a JWT token is created)
-User can add an item to their inventory of items with the following (The item gets added to the SQLite Database file)
+- User creates account. (The users information gets added to the SQLite Database file with the password being hashed using argon2)
+- User logs in with the created account. (An api call is made to check the users hashed password with the one used to log in and a JWT token is created)
+- User can add an item to their inventory of items with the following (The item gets added to the SQLite Database file)
   1. Item Description
   2. Direction if item is found
   3. Dropoff location
   4. Contact information (optional)
   
-Once the item has been added, a QR Code gets generated.
-That QR Code, once scanned, takes the "finder" to a public item page with the item info from earlier.
-The "finder" can also send an email to the owner of the item using a company email to protect the owners identity.
+- Once the item has been added, a QR Code gets generated.
+- That QR Code, once scanned, takes the "finder" to a public item page with the item info from earlier.
+- The "finder" can also send an email to the owner of the item using a company email to protect the owners identity.
 
 ## Screenshots / Demo
 
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-additem-2025-10-10-19_53_14" src="https://github.com/user-attachments/assets/9e94834b-81ad-406c-930c-b34fbaf19431" />
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-youritems-2025-10-10-19_55_56" src="https://github.com/user-attachments/assets/bb2209f2-05d9-4beb-9284-76f577bc9f4b" />
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-pub-getitem-62565c47227486cd-2025-10-10-19_56_06" src="https://github.com/user-attachments/assets/6620a883-8027-45f1-b997-f36a24919da6" />
-<img width="2050" height="2587" alt="screencapture-4857864d75f7-ngrok-free-app-2025-10-10-19_52_16" src="https://github.com/user-attachments/assets/e8cd1f0c-0877-4cf2-9803-46cc00438879" />
-<img width="2050" height="1567" alt="screencapture-4857864d75f7-ngrok-free-app-register-2025-10-10-19_52_42" src="https://github.com/user-attachments/assets/fd4d1547-7200-47d0-868a-ec891b8dcd62" />
-<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-login-2025-10-10-19_52_54" src="https://github.com/user-attachments/assets/08c80e7b-11a1-4030-a4d5-6059f7fbf4ec" />
-
+Landing Page
+<img width="2050" height="2587" alt="screencapture-4857864d75f7-ngrok-free-app-2025-10-10-19_52_16" src="https://github.com/user-attachments/assets/a20ae1fe-cae1-4a4f-a5d2-cc9e941a4a2c" />
+Register page
+<img width="2050" height="1567" alt="screencapture-4857864d75f7-ngrok-free-app-register-2025-10-10-19_52_42" src="https://github.com/user-attachments/assets/915d9efa-e177-48a3-a33a-484d65c2109d" />
+Login Page
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-login-2025-10-10-19_52_54" src="https://github.com/user-attachments/assets/184c2c37-7fa8-4a32-a006-fd29a21a81b7" />
+Profile page
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-profile-2025-10-10-19_59_10" src="https://github.com/user-attachments/assets/903a8152-ff10-48e6-8ca4-d21d437fc8d3" />
+Item Creation page
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-additem-2025-10-10-19_53_14" src="https://github.com/user-attachments/assets/fa06d7f4-5385-452d-b3de-d95fe094d81b" />
+Item page (Only visable to a logged in user)
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-youritems-2025-10-10-19_55_56" src="https://github.com/user-attachments/assets/1262b85d-266c-44d6-9bb1-a500fdd1c1d0" />
+Public Item page (When QR code is scanned)
+<img width="2050" height="1324" alt="screencapture-4857864d75f7-ngrok-free-app-pub-getitem-62565c47227486cd-2025-10-10-19_56_06" src="https://github.com/user-attachments/assets/6eb90af7-d4a6-4a5b-9f31-847510dc92ca" />
 
 ## 🌟 Future Improvements
 
