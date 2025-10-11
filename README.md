@@ -17,8 +17,8 @@ Version Control: Git & GitHub
 # 🔧 Installation & Running Locally
 ## Clone repository
 ```
-git clone https://github.com/Hider03/lock2.0.git
-cd lock2.0
+git clone https://github.com/Hider03/QRKey.git
+cd QRKey
 
 ## Create python virtual environment
 python -m venv .venv
