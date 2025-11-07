@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 import io
 import uuid
+import asyncio
 from typing import Optional
+import json
 
 from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request, Form, APIRouter
 from fastapi.responses import FileResponse, StreamingResponse
@@ -14,7 +16,7 @@ from pydantic import BaseModel
 
 from .database import SessionLocal, engine, Base
 from . import crud, models
-from .schemas import ItemCreate, UserCreate, LoginRequest, Settings, ItemPublic
+from .schemas import ItemCreate, UserCreate, LoginRequest, Settings, ItemPublic, ConversationCreate, MessageCreate
 from .email_utils import send_anonymous_email  # your email helper
 
 # ------------------------
@@ -78,33 +80,34 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 # ------------------------
 class ContactRequest(BaseModel):
     message: str
-    finder_contact: str | None = None
+    finder_contact: str
 
 # --- Public item endpoints ---
-@router.post("/item/{public_id}/contact")
+@router.post("/item/{id}/contact")
 async def contact_item_owner(
-    public_id: str,
+    id: str,
     payload: ContactRequest,  # 👈 Now FastAPI expects JSON
     db: Session = Depends(get_db)
 ):
-    item = crud.get_item_by_public_id(db, public_id)
+    item = crud.get_item_by_id(db, id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
 
     owner_email = item.owner.email
 
-    await send_anonymous_email(
-        recipient=owner_email,
-        subject="Someone found your item!",
-        body=f"Finder's message:\n\n{payload.message}\n\nFinder Contact: {payload.finder_contact or 'Not provided'}"
-    )
+    print(f"Contact request for item {id}: {payload.message} from {payload.finder_contact} {owner_email}")
+
+    crud.start_conversation(db, item.id, payload.finder_contact, owner_email, payload.message)
+
+    
+    #raise Exception("Simulated error for testing")
     return {"status": "Email sent"}
 
 
 @app.get("/api/pub/item/{item_id}")
 def get_public_item(item_id: str, db: Session = Depends(get_db)):
     """Get public item details for frontend display"""
-    item = db.query(models.Item).filter(models.Item.public_id == item_id).first()
+    item = db.query(models.Item).filter(models.Item.id == item_id).first()
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
@@ -113,22 +116,22 @@ def get_public_item(item_id: str, db: Session = Depends(get_db)):
 @app.get("/pub/getitem/{item_id}")
 def get_item_public_endpoint(item_id: str, db: Session = Depends(get_db)):
     """Serve public item HTML page"""
-    item = crud.get_item_by_public_id(db, item_id)
+    item = crud.get_item_by_id(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return FileResponse("frontend/pubitems.html")
 
 
-@app.get("/qrcode/public/{public_id}")
-def generate_qr_code(public_id: str, request: Request, db: Session = Depends(get_db)):
+@app.get("/qrcode/public/{id}")
+def generate_qr_code(id: str, request: Request, db: Session = Depends(get_db)):
     """Generate QR code that links to public item page"""
-    item = crud.get_item_by_public_id(db, public_id)
+    item = crud.get_item_by_id(db, id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
 
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     base_url = str(request.base_url).rstrip("/")
-    qr.add_data(f"{base_url}/pub/getitem/{item.public_id}")
+    qr.add_data(f"{base_url}/pub/getitem/{item.id}")
     qr.make(fit=True)
     img = qr.make_image(fill="black", back_color="white")
 
@@ -334,5 +337,230 @@ def serve_register():
 @app.get("/login")
 def serve_register():
     return FileResponse("frontend/login.html")
+
+
+#------------------------
+# CHAT
+#------------------------
+
+def get_current_user_optional(access_token: str | None = Cookie(default=None)):
+    if not access_token:
+        return None  # <-- allow finders
+    try:
+        payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        return {"user_id": payload["user_id"], "username": payload["sub"]}
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.PyJWTError:
+        return None
+
+@app.get("/pub/chat/{conversation_id}")
+async def get_conversation_page(
+    conversation_id: str,
+    guest: str | None = None,
+    db: Session = Depends(get_db),
+    current_user: dict | None = Depends(get_current_user_optional)
+):
+    conversation = crud.get_conversation(db, conversation_id)
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    allowed = False
+    if current_user:
+        if conversation.owner_id == current_user["user_id"]:
+            allowed = True
+        # elif conversation.finder_user_id == current_user["user_id"]:
+        #     allowed = True
+    elif guest:
+        if conversation.finder_id == guest:
+            allowed = True
+
+    if not allowed:
+        raise HTTPException(status_code=403, detail="Not authorized to access this conversation")
+
+    return FileResponse("frontend/chatpub.html")
+
+
+
+
+@app.get("/pub/chat/{conversation_id}/messages")
+async def get_conversation_messages(conversation_id: str, db: Session = Depends(get_db)):
+    conversation = crud.get_conversation(db, conversation_id)
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    return conversation.messages
+
+
+
+@app.post("/pub/chat/{conversation_id}/message")
+async def send_message(
+    conversation_id: str,
+    message_data: MessageCreate,  # schema with field: content: str
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user_optional),  # optional
+    request: Request = None
+):
+    # 1️⃣ Find the conversation
+    conversation = crud.get_conversation(db, conversation_id)
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    # 2️⃣ Determine sender type
+    sender_id = None
+    finder_id = None
+
+    if current_user:
+        # Logged-in user
+       sender_id = current_user["user_id"]
+    else:
+        # Anonymous finder — you could store finder_id in cookies/session
+        finder = conversation.finder
+        if finder:
+            finder_id = finder.id
+
+    # 3️⃣ Create and save message
+    new_message = models.Message(
+        conversation_id=conversation.id,
+        sender_id=sender_id,
+        finder_id=finder_id,
+        message_content=message_data.content
+    )
+
+    db.add(new_message)
+    db.commit()
+    db.refresh(new_message)
+
+    return new_message
+
+
+def start_finder_conversation(db, item_id, finder_email, owner_email, message):
+    finder_id = str(uuid.uuid4())  # unique, hard to guess
+    finder = crud.create_finder(db, finder_id=finder_id, email=finder_email)
+    conversation = crud.create_conversation(
+        db,
+        item_id=item_id,
+        finder_user_id=None,  # finder, not signed-in
+        finder_id=finder.id,
+        owner_email=owner_email,
+        initial_message=message
+    )
+    return conversation, finder_id
+
+
+
+@app.post("/api/pub/item/{item_id}/start_chat")
+async def start_conversation_endpoint(
+    item_id: str,
+    conversation_data: ConversationCreate,
+    db: Session = Depends(get_db)
+):
+    item = crud.get_item_by_id(db, item_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    owner_email = item.owner.email
+
+    conversation = crud.start_conversation(
+        db,
+        item.id,
+        conversation_data.finder_contact,
+        owner_email,
+        conversation_data.message
+    )
+    return {"conversation_id": conversation.id}
+
+
+@app.get("/pub/chat/{conversation_id}/stream")
+async def message_stream(
+    conversation_id: str,
+    request: Request,
+    guest: str | None = None,  # guest_id from query string
+    db: Session = Depends(get_db),
+    current_user: dict | None = Depends(get_current_user_optional),  # optional for logged-in users
+):
+    """
+    SSE endpoint to stream messages for both logged-in users and guests.
+    Guests are verified using the `guest` query parameter.
+    """
+    conversation = crud.get_conversation(db, conversation_id)
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    # 1️⃣ Verify access
+    allowed = False
+    if current_user:
+        # Logged-in user: owner or finder
+        if conversation.owner_id == current_user["user_id"]:
+            allowed = True
+        elif getattr(conversation.finder_user, "id", None) == current_user["user_id"]:
+            allowed = True
+    elif guest:
+        # Guest: check guest_id matches
+        if conversation.finder_id == guest:
+            allowed = True
+
+    if not allowed:
+        raise HTTPException(status_code=403, detail="Not authorized to access this conversation")
+
+    async def event_generator():
+        # Start from the first message timestamp to get the chat history
+        last_timestamp = conversation.messages[0].timestamp if conversation.messages else datetime.min
+
+        while True:
+            if await request.is_disconnected():
+                break
+
+            new_messages = db.query(models.Message).filter(
+                models.Message.conversation_id == conversation_id,
+                models.Message.timestamp > last_timestamp
+            ).order_by(models.Message.timestamp.asc()).all()
+
+            for msg in new_messages:
+                sent_by_current_user = False
+                if current_user and msg.sender_id == current_user.get("user_id"):
+                    sent_by_current_user = True
+                elif not current_user and guest and msg.finder_id == guest:
+                    sent_by_current_user = True
+
+                display_name = "You" if sent_by_current_user else ("Owner" if msg.sender_id else "Finder")
+                message_data = {
+                    "id": msg.id,
+                    "content": msg.message_content,
+                    "timestamp": msg.timestamp.strftime("%I:%M %p"),
+                    "sender_type": "you" if sent_by_current_user else ("owner" if msg.sender_id else "finder"),
+                    "sender_name": display_name
+                }
+                yield f"data: {json.dumps(message_data)}\n\n"
+
+            # Update last_timestamp after all messages are processed
+            if new_messages:
+                last_timestamp = new_messages[-1].timestamp
+
+            await asyncio.sleep(1)
+
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Access-Control-Allow-Origin": "*",
+        }
+    )
+
+@app.get("/mychats")
+def serve_mychats_page():
+    """Serve the user's chats page"""
+    return FileResponse("frontend/mychats.html")
+
+@app.get("/api/priv/mychats")
+def get_user_conversations(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    """Get all conversations for the logged-in user"""
+    conversations = crud.get_user_conversations(db, current_user["user_id"])
+    return conversations
 
 

@@ -19,7 +19,7 @@ async function loadItems() {
 
   for (const item of items) {
     // ✅ fetch QR image properly
-    const qrRes = await fetch(`/qrcode/public/${item.public_id}`, { credentials: "include" });
+    const qrRes = await fetch(`/qrcode/public/${item.id}`, { credentials: "include" });
     let qrUrl = "";
     if (qrRes.ok) {
       const blob = await qrRes.blob();
@@ -31,7 +31,7 @@ async function loadItems() {
 
     card.innerHTML = `
       <h3>
-        <a href="/priv/getitem/${item.private_id}" class="item-link">
+        <a href="/priv/getitem/${item.id}" class="item-link">
           ${item.item_description}
         </a>
       </h3>
@@ -39,16 +39,16 @@ async function loadItems() {
       <p class="item-info"><strong>Drop-off Location:</strong> ${item.dropoff_location}</p>
       <p class="item-info"><strong>Contact:</strong> ${item.contact ?? "N/A"}</p>
       <p class="item-actions">
-        <a href="/priv/getitem/${item.private_id}" class="item-link">Edit item</a>
+        <a href="/priv/getitem/${item.id}" class="item-link">Edit item</a>
         |
-        <a href="/pub/getitem/${item.public_id}" class="item-link">PUBLIC</a>
+        <a href="/pub/getitem/${item.id}" class="item-link">PUBLIC</a>
         ${
           qrUrl
             ? `| <a href="${qrUrl}" class="item-link" target="_blank"> Download [QR]</a>`
             : ""
         }
         |
-        <a href="/remove/${item.private_id}" class="item-link">Remove</a>
+        <a href="/remove/${item.id}" class="item-link">Remove</a>
       </p>
     `;
 

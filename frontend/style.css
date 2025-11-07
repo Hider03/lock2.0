@@ -2,15 +2,24 @@
 
 /* --- Global Reset & Typography (Dark Mode) --- */
 :root {
-    --primary-color: #d60000;   /* Bright Red/Orange for QRKey logo and accents */
-    --primary-hover: #c00d00;  /* Darker red on hover */
-    --secondary-color: #e0e0e0; /* Light gray for text */
-    --background-light: #121212; /* Dark page background */
-    --background-card: #1e1e1e; /* Slightly lighter background for cards/forms */
-    --border-color: #333333;     /* Subtle dark border */
-    --shadow-color: rgba(0, 0, 0, 0.5); /* Deeper shadow for dark theme */
-    --link-color: #4da6ff;       /* Soft blue for links */
-    --link-hover: #1a73e8;       /* Stronger blue on hover */
+    --primary-color: #d60000;
+    /* Bright Red/Orange for QRKey logo and accents */
+    --primary-hover: #c00d00;
+    /* Darker red on hover */
+    --secondary-color: #e0e0e0;
+    /* Light gray for text */
+    --background-light: #121212;
+    /* Dark page background */
+    --background-card: #1e1e1e;
+    /* Slightly lighter background for cards/forms */
+    --border-color: #333333;
+    /* Subtle dark border */
+    --shadow-color: rgba(6, 5, 5, 0.5);
+    /* Deeper shadow for dark theme */
+    --link-color: #4da6ff;
+    /* Soft blue for links */
+    --link-hover: #1a73e8;
+    /* Stronger blue on hover */
 }
 
 body {
@@ -56,6 +65,7 @@ header {
     transform: scale(1.05);
     color: var(--primary-hover);
 }
+
 
 header nav a,
 header #logout,
@@ -109,7 +119,8 @@ input[type="contact"] {
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    box-sizing: border-box; /* Important for padding/border not to increase width */
+    box-sizing: border-box;
+    /* Important for padding/border not to increase width */
     margin-top: 0.25rem;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -184,10 +195,11 @@ button#submit:hover {
 
 .item-card .item-actions {
     margin-top: 1rem;
-    text-align: center; /* This is the key change */
+    text-align: center;
+    /* This is the key change */
     border-top: 1px solid var(--border-color);
     padding-top: 1rem;
-    
+
     .item-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px var(--shadow-color);
@@ -201,7 +213,7 @@ button#submit:hover {
     .item-info {
         font-size: 0.95rem;
         margin-bottom: 0.5rem;
-        
+
     }
 }
 
@@ -210,7 +222,7 @@ button#submit:hover {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     /* Centering the image element itself */
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -270,3 +282,37 @@ footer {
     color: #666;
 }
 
+
+/* Header & Nav Overrides for Dark Theme */
+nav {
+    background-color: var(--background-card) !important;
+    box-shadow: 0 2px 4px var(--shadow-color) !important;
+}
+
+nav a {
+    color: var(--secondary-color) !important;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: var(--primary-color) !important;
+}
+
+.brand-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    cursor: pointer;
+}
+
+.sidenav {
+    background-color: var(--background-card);
+}
+
+.sidenav a {
+    color: var(--secondary-color);
+}
+
+.sidenav a:hover {
+    color: var(--primary-color);
+}

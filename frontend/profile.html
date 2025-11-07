@@ -1,127 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QRKey Dashboard</title>
-<link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRKey Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
-<header>
-    <h1 id="logo">QRKey</h1>
-    <div style="display: flex; align-items: center;">
-        <p id="userInfo">loading...</p>
-        <a href="#" id="logout">logout</a>
-    </div>
+    <header>
+        <h1 id="logo">QRKey</h1>
+        <div style="display: flex; align-items: center;">
+            <p id="userInfo">loading...</p>
+            <a href="#" id="logout">logout</a>
+        </div>
 
-</header>
+    </header>
 
-<main>
-    <section class="dashboard-grid">
-        <button id="add_items" class="dashboard-btn">Add Item</button>
-        <button id="your_items" class="dashboard-btn">Your Items</button>
-        <button id="settings"class="dashboard-btn">Settings</button>
-        <button class="dashboard-btn">Help and FAQ</button>
-    </section>
-</main>
+    <main>
+        <section class="dashboard-grid">
+            <button id="add_items" class="dashboard-btn">Add Item</button>
+            <button id="your_items" class="dashboard-btn">Your Items</button>
+            <button id="your_chats" class="dashboard-btn">Chats</button>
+            <button id="settings" class="dashboard-btn">Settings</button>
+            <button class="dashboard-btn">Help and FAQ</button>
+        </section>
+    </main>
     <script src="/static/profile.js"></script>
     <script src="/static/script.js"></script>
     <script>
         const additem = document.getElementById("add_items"); // replace with your logo's ID
 
         additem.addEventListener("click", async (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        try {
-            const res = await fetch("/userinfo", {
-            method: "GET",
-            credentials: "include" // sends the JWT cookie
-            });
+            try {
+                const res = await fetch("/userinfo", {
+                    method: "GET",
+                    credentials: "include" // sends the JWT cookie
+                });
 
-            if (res.ok) {
-            // User is logged in → go to profile
-            window.location.href = "/additem";
-            } else {
-            // Not authenticated → go to homepage
-            window.location.href = "/";
+                if (res.ok) {
+                    // User is logged in → go to profile
+                    window.location.href = "/additem";
+                } else {
+                    // Not authenticated → go to homepage
+                    window.location.href = "/";
+                }
+            } catch (err) {
+                // On error (e.g., network issues), just go to homepage
+                window.location.href = "/";
             }
-        } catch (err) {
-            // On error (e.g., network issues), just go to homepage
-            window.location.href = "/";
-        }
         });
 
         const youritems = document.getElementById("your_items"); // replace with your logo's ID
 
         youritems.addEventListener("click", async (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        try {
-            const res = await fetch("/userinfo", {
-            method: "GET",
-            credentials: "include" // sends the JWT cookie
-            });
+            try {
+                const res = await fetch("/userinfo", {
+                    method: "GET",
+                    credentials: "include" // sends the JWT cookie
+                });
 
-            if (res.ok) {
-            // User is logged in → go to profile
-            window.location.href = "/youritems";
-            } else {
-            // Not authenticated → go to homepage
-            window.location.href = "/";
+                if (res.ok) {
+                    // User is logged in → go to profile
+                    window.location.href = "/youritems";
+                } else {
+                    // Not authenticated → go to homepage
+                    window.location.href = "/";
+                }
+            } catch (err) {
+                // On error (e.g., network issues), just go to homepage
+                window.location.href = "/";
             }
-        } catch (err) {
-            // On error (e.g., network issues), just go to homepage
-            window.location.href = "/";
-        }
         });
 
         const settings = document.getElementById("settings"); // replace with your logo's ID
 
         settings.addEventListener("click", async (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        try {
-            const res = await fetch("/userinfo", {
-            method: "GET",
-            credentials: "include" // sends the JWT cookie
-            });
+            try {
+                const res = await fetch("/userinfo", {
+                    method: "GET",
+                    credentials: "include" // sends the JWT cookie
+                });
 
-            if (res.ok) {
-            // User is logged in → go to profile
-            window.location.href = "/settings";
-            } else {
-            // Not authenticated → go to homepage
-            window.location.href = "/";
+                if (res.ok) {
+                    // User is logged in → go to profile
+                    window.location.href = "/settings";
+                } else {
+                    // Not authenticated → go to homepage
+                    window.location.href = "/";
+                }
+            } catch (err) {
+                // On error (e.g., network issues), just go to homepage
+                window.location.href = "/";
             }
-        } catch (err) {
-            // On error (e.g., network issues), just go to homepage
-            window.location.href = "/";
-        }
+        });
+
+
+        const chats = document.getElementById("your_chats"); // replace with your logo's ID
+
+        chats.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            try {
+                const res = await fetch("/userinfo", {
+                    method: "GET",
+                    credentials: "include" // sends the JWT cookie
+                });
+
+                if (res.ok) {
+                    // User is logged in → go to profile
+                    window.location.href = "/mychats";
+                } else {
+                    // Not authenticated → go to homepage
+                    window.location.href = "/";
+                }
+            } catch (err) {
+                // On error (e.g., network issues), just go to homepage
+                window.location.href = "/";
+            }
         });
 
         const logout = document.getElementById("logout"); // replace with your logo's ID
         logout.addEventListener("click", async (e) => {
-        e.preventDefault();
-        try {
-            const res = await fetch("/logout", {
-            method: "POST",
-            credentials: "include" // sends the JWT cookie
-            });
+            e.preventDefault();
+            try {
+                const res = await fetch("/logout", {
+                    method: "POST",
+                    credentials: "include" // sends the JWT cookie
+                });
 
-            if (res.ok) {
-            // User is logged in → go to profile
-            window.location.href = "/";
-            } else {
-            // Not authenticated → go to homepage
-            window.location.href = "/";
+                if (res.ok) {
+                    // User is logged in → go to profile
+                    window.location.href = "/";
+                } else {
+                    // Not authenticated → go to homepage
+                    window.location.href = "/";
+                }
+            } catch (err) {
+                // On error (e.g., network issues), just go to homepage
+                window.location.href = "/";
             }
-        } catch (err) {
-            // On error (e.g., network issues), just go to homepage
-            window.location.href = "/";
-        }
         });
 
 
     </script>
 </body>
+
 </html>

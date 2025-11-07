@@ -57,7 +57,7 @@ class ItemCreate(ItemBase):
 
 class Item(ItemBase):
     """Item model with private ID"""
-    private_id: str
+    id: str
 
     class Config:
         from_attributes = True  # For Pydantic v2
@@ -65,7 +65,7 @@ class Item(ItemBase):
 
 class ItemPublic(BaseModel):
     """Public-facing item model"""
-    public_id: str
+    id: str
     item_description: str
     directions: str
     dropoff_location: str
@@ -95,3 +95,39 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8"
     )
+
+#------------------------
+# CHAT MODELS
+#------------------------
+
+class ConversationCreate(BaseModel):
+    """Model for creating a conversation"""
+    item_id: str
+    finder_contact: str
+    message: str
+
+class Conversation(BaseModel):
+    """Conversation model with ID"""
+    id: str
+    finder_id: Optional[str] = None
+    owner_id: Optional[str] = None
+    
+
+    class Config:
+        from_attributes = True  # For Pydantic v2
+
+
+class MessageCreate(BaseModel):
+    content: str
+
+class Message(BaseModel):
+    """Message model with ID"""
+    id: str
+    conversation_id: str
+    sender_id: Optional[str] = None  # Nullable for guest senders
+    finder_id: Optional[str] = None   # Nullable for user senders
+    message_content: str
+    timestamp: str  # ISO formatted datetime string
+
+    class Config:
+        from_attributes = True  # For Pydantic v2
